@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/firstFragment">
+
+    <fragment
+        android:id="@+id/firstFragment"
+        android:name="com.example.zadanie3android.Fragment1"
+        android:label="First Fragment">
+        <!-- Define actions -->
+        <action
+            android:id="@+id/action_first_to_list"
+
+            app:destination="@id/listFragment" />
+        <action
+            android:id="@+id/action_first_to_swipe"
+
+            app:destination="@id/swipeFragment" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/listFragment"
+        android:name="com.example.zadanie3android.FragmentList"
+        android:label="List Fragment">
+        <!-- Define actions -->
+        <action
+            android:id="@+id/action_list_to_first"
+
+            app:destination="@id/firstFragment" />
+        <action
+            android:id="@+id/action_list_to_swipe"
+
+            app:destination="@id/swipeFragment" />
+        <action
+            android:id="@+id/action_list_to_add"
+
+            app:destination="@id/fragmentAdd" />
+        <action
+            android:id="@+id/action_list_to_details"
+
+            app:destination="@id/fragmentDetails" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/swipeFragment"
+        android:name="com.example.zadanie3android.FragmentSwipe"
+        android:label="Swipe Fragment" >
+        <!-- Define actions -->
+        <action
+            android:id="@+id/action_swipe_to_first"
+
+            app:destination="@id/firstFragment" />
+        <action
+            android:id="@+id/action_swipe_to_list"
+
+            app:destination="@id/swipeFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/fragmentDetails"
+        android:name="com.example.zadanie3android.FragmentDetails"
+        android:label="fragment_details"
+        tools:layout="@layout/fragment_details" >
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/fragmentAdd"
+        android:name="com.example.zadanie3android.FragmentAdd"
+        android:label="fragment_add"
+        tools:layout="@layout/fragment_add" >
+
+    </fragment>
+
+    <action
+        android:id="@+id/action_details_to_add"
+        app:destination="@id/fragmentAdd"
+        app:popUpTo="@id/fragmentAdd"
+        app:popUpToInclusive="true"/>
+    <action
+        android:id="@+id/action_add_to_list"
+        app:destination="@id/listFragment"
+        app:popUpTo="@id/listFragment"
+
+        />
+
+</navigation>
