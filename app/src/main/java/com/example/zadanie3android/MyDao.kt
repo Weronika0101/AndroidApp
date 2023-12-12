@@ -19,5 +19,7 @@ interface MyDao {
     fun delete(item: DBItem?) : Int
     @Update
     fun update(item: DBItem?): Int
+    @Query("SELECT * FROM item_table WHERE id = :itemId")
+    fun getItemById(itemId: Long): DBItem?
 
 }

@@ -21,12 +21,12 @@ class DBItem {
     @ColumnInfo(name = "typ")
     var item_type : Int = Random.nextInt(0, 4)
     constructor()
-    constructor(text_sport:String, item_beginner:Boolean,item_trudnosc: Int, item_opis: String) : this() {
+    constructor(text_sport:String, item_beginner:Boolean,item_trudnosc: Int, item_opis: String,item_type:Int) : this() {
         this.text_sport=text_sport
         this.item_beginner=item_beginner
         this.item_trudnosc=item_trudnosc
         this.item_opis=item_opis
-        this.item_type=Random.nextInt(0, 4)
+        this.item_type=item_type
         this.text_main = "Element "
 
 

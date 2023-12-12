@@ -1,6 +1,7 @@
 package com.example.zadanie3android
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -58,8 +59,19 @@ class FragmentList : Fragment() {
         dataRepo = MyRepository.getinstance(requireContext())
         adapter = MyAdapter(dataRepo.getData()!!)
 
-        parentFragmentManager.setFragmentResultListener("item_added", this) {
-                requestKey, _ ->
+//        parentFragmentManager.setFragmentResultListener("item_added", this) {
+//                requestKey, _ ->
+//            adapter.data = dataRepo.getData()!!
+//            adapter.notifyDataSetChanged()
+//        }
+        parentFragmentManager.setFragmentResultListener("item_added", this) { _, _ ->
+            // Item added, refresh the data
+            adapter.data = dataRepo.getData()!!
+            adapter.notifyDataSetChanged()
+        }
+
+        parentFragmentManager.setFragmentResultListener("item_modified", this) { _, _ ->
+            // Item modified, refresh the data
             adapter.data = dataRepo.getData()!!
             adapter.notifyDataSetChanged()
         }
@@ -135,19 +147,27 @@ class FragmentList : Fragment() {
         }
         @SuppressLint("SuspiciousIndentation", "NotifyDataSetChanged")
         override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-            holder.tv1.text = data[position].text_main
+            val item = data[position]
+            if(item.text_sport=="") item.text_sport="Tenis"
+
+            holder.tv1.text = data[position].text_sport
+
+
 
 
             holder.itemView.setOnClickListener {
-                Toast.makeText(requireContext(),
-                    "You clicked: " + (position + 1),
-                    Toast.LENGTH_SHORT).show()
-
-                val bundle = Bundle()
-                bundle.putInt("selectedItemPosition", position)
-                val fragmentDetails = FragmentDetails()
-                fragmentDetails.arguments = bundle
-                findNavController().navigate(R.id.action_list_to_details, bundle)
+//                Toast.makeText(requireContext(),
+//                    "You clicked: " + (position + 1),
+//                    Toast.LENGTH_SHORT).show()
+                val data = requireContext().getSharedPreferences("data", Context.MODE_PRIVATE)
+                data.edit().putLong("id", item.id.toLong()).apply()
+                findNavController().navigate(R.id.fragmentDetails)
+//
+//                val bundle = Bundle()
+//                bundle.putInt("selectedItemPosition", position)
+//                val fragmentDetails = FragmentDetails()
+//                fragmentDetails.arguments = bundle
+//                findNavController().navigate(R.id.action_list_to_details, bundle)
 
             }
             holder.itemView.setOnLongClickListener {
@@ -175,60 +195,60 @@ class FragmentList : Fragment() {
                 true
             }
 
-            val updatedItem = DBItem().apply {
-                id = data[position].id
-                text_main = data[position].text_main
+//            val updatedItem = DBItem().apply {
+//                id = data[position].id
+//                text_main = data[position].text_main
                 when (data[position].item_type) {
                     0 -> {
                         holder.img.setImageResource(R.drawable.ic_img1)
-                        data[position].text_sport = "Gimnastyka"
-                        if (data[position].item_opis == "Default opis") {
-                            data[position].item_opis =
-                                " Pamiętajmy, że dzięki gimnastyce rozwijamy zarówno układ ruchowy, " +
-                                        "jak i nerwowy, a więc siłę, koordynację, gibkość, szybkość i wytrzymałość naszego organizmu."
-                        }
+//                        data[position].text_sport = "Gimnastyka"
+//                        if (data[position].item_opis == "Default opis") {
+//                            data[position].item_opis =
+//                                " Pamiętajmy, że dzięki gimnastyce rozwijamy zarówno układ ruchowy, " +
+//                                        "jak i nerwowy, a więc siłę, koordynację, gibkość, szybkość i wytrzymałość naszego organizmu."
+//                        }
                     }
                     1 -> {
                         holder.img.setImageResource(R.drawable.ic_img2)
-                        data[position].text_sport = "Piłka ręczna"
-                        if (data[position].item_opis == "Default opis") {
-                            data[position].item_opis =
-                                " Piłka ręczna jest sportem drużynowym opartym na zasadach \"fair play\". "
-                        }
+//                        data[position].text_sport = "Piłka ręczna"
+//                        if (data[position].item_opis == "Default opis") {
+//                            data[position].item_opis =
+//                                " Piłka ręczna jest sportem drużynowym opartym na zasadach \"fair play\". "
+//                        }
                     }
                     2 -> {
                         holder.img.setImageResource(R.drawable.ic_img3)
-                        data[position].text_sport = "Koszykówka"
-                        if (data[position].item_opis == "Default opis") {
-                            data[position].item_opis =
-                                " Koszykówka (lub piłka koszykowa) – dyscyplina sportu drużynowego (sport olimpijski)," +
-                                        " w której dwie pięcioosobowe drużyny grają przeciwko sobie."
-                        }
+//                        data[position].text_sport = "Koszykówka"
+//                        if (data[position].item_opis == "Default opis") {
+//                            data[position].item_opis =
+//                                " Koszykówka (lub piłka koszykowa) – dyscyplina sportu drużynowego (sport olimpijski)," +
+//                                        " w której dwie pięcioosobowe drużyny grają przeciwko sobie."
+//                        }
                     }
                     3 -> {
                         holder.img.setImageResource(R.drawable.ic_img4)
-                        data[position].text_sport = "Tenis"
-                        if (data[position].item_opis == "Default opis") {
-                            data[position].item_opis =
-                                " Mecz tenisowy składa się z setów, sety z gemów, a gemy z punktów."
-                        }
+//                        data[position].text_sport = "Tenis"
+//                        if (data[position].item_opis == "Default opis") {
+//                            data[position].item_opis =
+//                                " Mecz tenisowy składa się z setów, sety z gemów, a gemy z punktów."
+//                        }
                     }
 
                     else -> {
-                        text_sport = data[position].text_sport
-                        item_opis = "Inny opis"
+//                        text_sport = data[position].text_sport
+//                        item_opis = "Inny opis"
                         true
 
                     }
                 }
 
 //                text_sport = data[position].text_sport
-                item_beginner = data[position].item_beginner
-                item_trudnosc = data[position].item_trudnosc
-                item_type = data[position].item_type
-            }
+//                item_beginner = data[position].item_beginner
+//                item_trudnosc = data[position].item_trudnosc
+//                item_type = data[position].item_type
+//            }
 
-            dataRepo.updateItem(updatedItem)
+//            dataRepo.updateItem(updatedItem)
 
             holder.tv2.text = data[position].text_sport + " poziom: "+data[position].item_trudnosc
         }

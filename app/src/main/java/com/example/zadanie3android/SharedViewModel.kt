@@ -11,6 +11,8 @@ class SharedViewModel : ViewModel() {
     val data: LiveData<MutableList<DataItem>> get() = _data
     val selectedImageResId = MutableLiveData<Int>()
 
+    val selectedItemPosition = MutableLiveData<Int>()
+
     fun setSelectedImage(resId: Int) {
         selectedImageResId.value = resId
         Log.d("SharedViewModel", "Selected image set to: $resId")

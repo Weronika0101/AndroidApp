@@ -40,4 +40,7 @@ class MyRepository(context: Context) {
         val result = myDao.update(item)
         return result > 0
     }
+    fun getDataById(id: Long): DBItem?{
+        return myDao.getItemById(id)
+    }
 }
