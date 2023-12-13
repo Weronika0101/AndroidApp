@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
+
     <item
         android:id="@+id/firstFragment"
         android:title="Fragment 1" />
@@ -12,6 +13,10 @@
     <item
         android:id="@+id/swipeFragment"
         android:title="Fragment Swipe" />
+    <item
+        android:id="@+id/fragment_new"
+        android:title="Fragment New"
+        />
 
 
     <!-- Add other menu items if needed -->

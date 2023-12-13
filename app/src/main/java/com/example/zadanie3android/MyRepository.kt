@@ -3,7 +3,7 @@ package com.example.zadanie3android
 import android.content.Context
 
 class MyRepository(context: Context) {
-    private var dataList: MutableList<DBItem>? = null
+    private var dataList: MutableList<DBItem>? = null //tu tez bedzie livedata lub flow
     private var myDao: MyDao
     private var db: MyDB
 

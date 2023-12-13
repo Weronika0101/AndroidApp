@@ -34,6 +34,7 @@ class MainActivity : AppCompatActivity() {
                 R.id.swipeFragment,
                 R.id.fragmentDetails,
                 R.id.fragmentAdd,
+                R.id.fragment_new
             ),
             drawerLayout
         )

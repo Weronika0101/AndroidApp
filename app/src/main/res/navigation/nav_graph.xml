@@ -75,16 +75,56 @@
 
     </fragment>
 
+    <fragment
+        android:id="@+id/fragment_new"
+        android:name="com.example.zadanie3android.NewFragment"
+        android:label="fragment_new"
+        tools:layout="@layout/fragment_new" >
+
+        <action
+            android:id="@+id/action_new_to_add"
+            app:destination="@id/fragmentAdd"
+            app:popUpTo="@id/fragment_new"
+            app:popUpToInclusive="true"/>
+        <action
+            android:id="@+id/action_new_to_details"
+            app:destination="@id/fragmentDetails"
+            app:popUpTo="@id/fragment_new"
+            app:popUpToInclusive="true"
+
+            />
+    </fragment>
+    <fragment
+        android:id="@+id/fragment_modify"
+        android:name="com.example.zadanie3android.FragmentModify"
+        android:label="fragment_modify"
+        tools:layout="@layout/fragment_modify" />
+
     <action
         android:id="@+id/action_details_to_add"
         app:destination="@id/fragmentAdd"
         app:popUpTo="@id/fragmentAdd"
         app:popUpToInclusive="true"/>
+
+    <action
+        android:id="@+id/action_details_to_mod"
+        app:destination="@id/fragment_modify"
+        app:popUpTo="@id/fragment_new"
+        app:popUpToInclusive="true"
+/>
     <action
         android:id="@+id/action_add_to_list"
         app:destination="@id/listFragment"
         app:popUpTo="@id/listFragment"
-
+        app:popUpToInclusive="true"
         />
+
+    <action
+        android:id="@+id/action_add_to_new"
+        app:destination="@id/fragment_new"
+        app:popUpTo="@id/fragment_new"
+        app:popUpToInclusive="true"
+        />
+
 
 </navigation>

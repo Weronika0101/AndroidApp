@@ -10,7 +10,7 @@ import androidx.room.Update
 @Dao
 interface MyDao {
     @Query("SELECT * FROM item_table ORDER BY id ASC")
-    fun getAllData(): MutableList<DBItem>?
+    fun getAllData(): MutableList<DBItem>? //bedzie livedata potem albo flow
     @Query("DELETE FROM item_table")
     fun deleteAll()
     @Insert(onConflict = OnConflictStrategy.IGNORE)

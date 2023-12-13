@@ -33,7 +33,7 @@ class FragmentDetails : Fragment() {
     private lateinit var binding: FragmentDetailsBinding
     private lateinit var myRepository: MyRepository
     lateinit var adapter : FragmentList.MyAdapter
-    private var selectedItemPosition: Int = -1
+    //private var selectedItemPosition: Int = -1
 
     private val sharedViewModel: SharedViewModel by viewModels()
 
@@ -110,7 +110,7 @@ class FragmentDetails : Fragment() {
 
                 }
             }
-            view.let { Navigation.findNavController(it).navigate(R.id.action_details_to_add, bundle) }
+            view.let { Navigation.findNavController(it).navigate(R.id.action_details_to_mod, bundle) }
         }
 
 //            }
