@@ -72,12 +72,7 @@ class FragmentAdd : Fragment() {
                 inputTrudnosc.rating=dataItem.item_trudnosc.toFloat()
                 inputOpis.setText(dataItem.item_opis)
 
-//                tytul.text = dataItem.text_main
-//                dyscyplina.text = "Dyscyplina: ${dataItem.text_sport}"
-//                trudnosc.rating = dataItem.item_trudnosc.toFloat()
-//                opis.text = dataItem.item_opis
-//                poczatkujacy.isChecked = dataItem.item_beginner
-//                poczatkujacy.isEnabled = false
+
             }
         }
         return binding.root
@@ -121,7 +116,7 @@ class FragmentAdd : Fragment() {
 
             myRepository.addItem(DBItem(sport, poczatkujacy, trudnosc, opis, typ))
             //findNavController().navigate(R.id.listFragment)
-                view.let { Navigation.findNavController(it).navigate(R.id.action_add_to_list,Bundle.EMPTY) }
+                view.let { Navigation.findNavController(it).navigate(R.id.action_add_to_new,Bundle.EMPTY) }
         } else {
 
                 val data = requireContext().getSharedPreferences("data", Context.MODE_PRIVATE)
@@ -131,22 +126,7 @@ class FragmentAdd : Fragment() {
                     myRepository.deleteItem(dataItem)
                 }
 
-//                    dataItem.text_sport = inputSport.text.toString().takeIf { it.isNotEmpty() } ?: ""
-//                    dataItem.item_beginner = binding.radioButton3.isChecked
-//                    dataItem.item_trudnosc = inputTrudnosc.rating.toInt()
-//                    dataItem.item_opis = inputOpis.text.toString().takeIf { it.isNotEmpty() } ?: ""
-//                    //val typ: Int
-//                    if (inputSport.text.toString() == "Gimnastyka") {
-//                        dataItem.item_type = 0
-//                    } else if (inputSport.text.toString() == "Piłka ręczna") {
-//                        dataItem.item_type = 1
-//                    } else if (inputSport.text.toString() == "Koszykówka") {
-//                        dataItem.item_type = 2
-//                    } else if (inputSport.text.toString() == "Tenis") {
-//                        dataItem.item_type = 3
-//                    } else {
-//                        dataItem.item_type = 3
-//                    }
+
                 val sport = inputSport.text.toString().takeIf { it.isNotEmpty() } ?: ""
                 val poczatkujacy = binding.radioButton3.isChecked
                 val trudnosc = inputTrudnosc.rating.toInt()
@@ -166,7 +146,7 @@ class FragmentAdd : Fragment() {
 
                 myRepository.addItem(DBItem(sport, poczatkujacy, trudnosc, opis, typ))
                 //findNavController().navigate(R.id.listFragment)
-                view.let { Navigation.findNavController(it).navigate(R.id.action_add_to_list,Bundle.EMPTY) }
+                view.let { Navigation.findNavController(it).navigate(R.id.action_add_to_new,Bundle.EMPTY) }
             }
 
         }
@@ -175,99 +155,7 @@ class FragmentAdd : Fragment() {
             requireActivity().onBackPressed()
             //findNavController().navigate(R.id.listFragment)
         }
-//        var selectedItemPosition = arguments?.getInt("selectedItemPosition") ?: -1
-//        if (selectedItemPosition != -1) {
-//            val selectedItem = selectedItemPosition.let { myRepository.getData()?.get(it) }
-//            if (selectedItem != null) {
-//                // Update UI with details
-//                binding.inputDyscyplina.setText(selectedItem.text_sport)
-//                binding.inputOpis.setText(selectedItem.item_opis)
-//                binding.inputTrudnosc.rating = selectedItem.item_trudnosc.toFloat()
-//                // Update other UI elements accordingly
-//
-//                val beginnerRadioButtonId =
-//                    if (selectedItem.item_beginner) R.id.radioButton3 else R.id.radioButton4
-//                binding.inputPoczatkujacy.check(beginnerRadioButtonId)
-//            }
-//        }
-//
-//
-//                val btnSave: Button = view.findViewById(R.id.btnSave)
-//                btnSave.setOnClickListener { view: View ->
-//                    if (selectedItemPosition == -1) {
-//
-//                        var text_sport =
-//                            view.findViewById<EditText>(R.id.input_dyscyplina)?.text.toString()
-//                        var inputTrudnoscRatingBar =
-//                            view.findViewById<RatingBar>(R.id.input_trudnosc)
-//                        //var item_trudnosc = inputTrudnoscRatingBar.rating.toInt()
-//                        var item_trudnosc = 3
-//                        var item_opis =
-//                            view.findViewById<EditText>(R.id.input_opis)?.text.toString()
-//                        var item_beginner =
-//                            view.findViewById<RadioGroup>(R.id.input_poczatkujacy)?.checkedRadioButtonId == R.id.radioButton3
-//                        if (text_sport == "Gimnastyka") {
-//                            var item_type = 0
-//                        } else if (text_sport == "Piłka ręczna") {
-//                            var item_type = 1
-//                        } else if (text_sport == "Koszykówka") {
-//                            var item_type = 2
-//                        } else if (text_sport == "Tenis") {
-//                            var item_type = 3
-//                        } else {
-//                            var item_type = 3
-//                        }
-//
-////                        Log.d(
-////                            "TAG",
-////                            item.text_sport + item.item_opis + item.item_beginner + item.item_type
-////                        )
-//
-//                        if (MyRepository.getinstance(requireContext()).addItem(DBItem(text_sport,item_beginner, item_trudnosc ,item_opis)))
-//                            parentFragmentManager.setFragmentResult("item_added", Bundle.EMPTY)
-//                        sharedViewModel.selectedItemPosition.value = -1
-//                        requireActivity().onBackPressed()
-//
-//                    } else {
-//                        var selectedItem =
-//                            selectedItemPosition.let { myRepository.getData()?.get(it) }
-//                        if (selectedItem != null) {
-//                            selectedItem.text_sport = binding.inputDyscyplina.text.toString()
-//                            selectedItem.item_opis = binding.inputOpis.text.toString()
-//                            var inputTrudnoscRatingBar =
-//                                view.findViewById<RatingBar>(R.id.input_trudnosc)
-//                            if (inputTrudnoscRatingBar != null) {
-//                                selectedItem.item_trudnosc = inputTrudnoscRatingBar.rating.toInt()
-//                            }
-//                            selectedItem.item_beginner =
-//                                view.findViewById<RadioGroup>(R.id.input_poczatkujacy)?.checkedRadioButtonId == R.id.radioButton3
-//                            if (selectedItem.text_sport == "Gimnastyka") {
-//                                selectedItem.item_type = 0
-//                            } else if (selectedItem.text_sport == "Piłka ręczna") {
-//                                selectedItem.item_type = 1
-//                            } else if (selectedItem.text_sport == "Koszykówka") {
-//                                selectedItem.item_type = 2
-//                            } else if (selectedItem.text_sport == "Tenis") {
-//                                selectedItem.item_type = 3
-//                            } else {
-//                                selectedItem.item_type = 3
-//                            }
-//                        }
-//                        if (selectedItem != null) {
-//                            myRepository.updateItem(selectedItem)
-//                        }
-//
-//                        parentFragmentManager.setFragmentResult("item_modified", Bundle.EMPTY)
-//                        requireActivity().onBackPressed()
-//
-//                    }
-//                }
-//
-//                val backButton: Button =
-//                    (requireActivity().findViewById<View>(R.id.btnAnuluj) as Button)
-//                backButton.setOnClickListener { _ ->
-//                    requireActivity().onBackPressed()
-//                }
+
 
             }
 

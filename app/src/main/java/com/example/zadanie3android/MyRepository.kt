@@ -1,9 +1,13 @@
 package com.example.zadanie3android
 
 import android.content.Context
+import androidx.lifecycle.LiveData
+import kotlinx.coroutines.flow.Flow
 
 class MyRepository(context: Context) {
     private var dataList: MutableList<DBItem>? = null //tu tez bedzie livedata lub flow
+    private var dataList2: LiveData<List<DBItem>>? = null //tu tez bedzie livedata lub flow
+    private var dataList3: Flow<List<DBItem>>? = null //tu tez bedzie livedata lub flow
     private var myDao: MyDao
     private var db: MyDB
 
@@ -28,12 +32,23 @@ class MyRepository(context: Context) {
         dataList = myDao.getAllData()
         return dataList
     }
+
+    fun getData2(): LiveData<List<DBItem>>? {
+        dataList2 = myDao.getAllData2()
+        return dataList2
+    }
+
+    fun getData3(): Flow<List<DBItem>>? {
+        dataList3 = myDao.getAllData3()
+        return dataList3
+    }
+
     fun addItem(item: DBItem?) : Boolean {
-        if(myDao.insert(item) >= 0) return true
+        if(item?.let { myDao.insert(it) }!! >= 0) return true
         else return false
     }
     fun deleteItem(item: DBItem?) : Boolean {
-        if(myDao.delete(item) > 0) return true
+        if(item?.let { myDao.delete(it) }!! > 0) return true
         else return false
     }
     fun updateItem(item: DBItem): Boolean {

@@ -59,11 +59,7 @@ class FragmentList : Fragment() {
         dataRepo = MyRepository.getinstance(requireContext())
         adapter = MyAdapter(dataRepo.getData()!!)
 
-//        parentFragmentManager.setFragmentResultListener("item_added", this) {
-//                requestKey, _ ->
-//            adapter.data = dataRepo.getData()!!
-//            adapter.notifyDataSetChanged()
-//        }
+
         parentFragmentManager.setFragmentResultListener("item_added", this) { _, _ ->
             // Item added, refresh the data
             adapter.data = dataRepo.getData()!!
@@ -122,11 +118,7 @@ class FragmentList : Fragment() {
 
     inner class MyAdapter(var data: MutableList<DBItem>) :
         RecyclerView.Adapter<MyAdapter.MyViewHolder>() {
-//        fun updateData(newData: List<DataItem>) {
-//            data.clear()
-//            data.addAll(newData)
-//            notifyDataSetChanged()
-//        }
+
 
         inner class MyViewHolder(viewBinding : ListRowBinding) :
             RecyclerView.ViewHolder(viewBinding.root) {
@@ -154,7 +146,6 @@ class FragmentList : Fragment() {
 
 
 
-
             holder.itemView.setOnClickListener {
 //                Toast.makeText(requireContext(),
 //                    "You clicked: " + (position + 1),
@@ -162,12 +153,7 @@ class FragmentList : Fragment() {
                 val data = requireContext().getSharedPreferences("data", Context.MODE_PRIVATE)
                 data.edit().putLong("id", item.id.toLong()).apply()
                 findNavController().navigate(R.id.fragmentDetails)
-//
-//                val bundle = Bundle()
-//                bundle.putInt("selectedItemPosition", position)
-//                val fragmentDetails = FragmentDetails()
-//                fragmentDetails.arguments = bundle
-//                findNavController().navigate(R.id.action_list_to_details, bundle)
+
 
             }
             holder.itemView.setOnLongClickListener {
@@ -242,13 +228,7 @@ class FragmentList : Fragment() {
                     }
                 }
 
-//                text_sport = data[position].text_sport
-//                item_beginner = data[position].item_beginner
-//                item_trudnosc = data[position].item_trudnosc
-//                item_type = data[position].item_type
-//            }
 
-//            dataRepo.updateItem(updatedItem)
 
             holder.tv2.text = data[position].text_sport + " poziom: "+data[position].item_trudnosc
         }

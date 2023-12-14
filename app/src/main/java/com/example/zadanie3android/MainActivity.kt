@@ -2,8 +2,10 @@ package com.example.zadanie3android
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.activity.viewModels
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
@@ -15,6 +17,7 @@ import com.google.android.material.navigation.NavigationView
 class MainActivity : AppCompatActivity() {
     lateinit var binding : ActivityMainBinding
     private lateinit var sharedViewModel: SharedViewModel
+    val myvm : MyViewModel by viewModels {MyViewModel.Factory}
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)

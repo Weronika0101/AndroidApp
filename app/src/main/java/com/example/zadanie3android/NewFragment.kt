@@ -1,31 +1,62 @@
 package com.example.zadanie3android
-
 import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.CheckBox
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
-import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
-import androidx.navigation.fragment.NavHostFragment
+import androidx.lifecycle.coroutineScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.example.zadanie3android.R
+import kotlinx.coroutines.launch
+//
+//import android.annotation.SuppressLint
+//import android.content.Context
+//import android.os.Bundle
+//import android.util.Log
+//import androidx.fragment.app.Fragment
+//import android.view.LayoutInflater
+//import android.view.View
+//import android.view.ViewGroup
+//import android.widget.CheckBox
+//import android.widget.ImageView
+//import android.widget.TextView
+//
+//import android.widget.Toast
+//import androidx.appcompat.app.AlertDialog
+//import androidx.appcompat.app.AppCompatActivity
+//import androidx.fragment.app.activityViewModels
+////import androidx.fragment.app.viewModels
+//import androidx.activity.viewModels
+//
+//import androidx.lifecycle.Observer
+//import androidx.lifecycle.coroutineScope
+////import androidx.lifecycle.coroutineScope
+//import androidx.navigation.fragment.NavHostFragment
+//import androidx.navigation.fragment.findNavController
+//import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.ListAdapter
-import androidx.recyclerview.widget.RecyclerView
 import com.example.zadanie3android.databinding.FragmentListBinding
 import com.example.zadanie3android.databinding.ListRowBinding
-import com.google.android.material.floatingactionbutton.FloatingActionButton
+
+//import com.example.zadanie3android.databinding.ListRowBinding
+//import com.google.android.material.floatingactionbutton.FloatingActionButton
+//import kotlinx.coroutines.flow.collect
+//import kotlinx.coroutines.launch
+//import kotlinx.coroutines.flow.Flow
+
+
+
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -41,12 +72,13 @@ class NewFragment : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
-    //    private lateinit var dataRepo: DataRepo
+
     lateinit var dataRepo: MyRepository
     lateinit var adapter : MyAdapter
     private lateinit var listbinding: FragmentListBinding
 
-    val myvm : MyViewModel by activityViewModels {MyViewModel.Factory}
+    private val myvm : MyViewModel by activityViewModels {MyViewModel.Factory}
+
 
     var onItemAction : (item:DBItem, action:Int)-> Unit = { item, action ->
         when (action) {
@@ -58,6 +90,7 @@ class NewFragment : Fragment() {
             2-> {
             dataRepo.deleteItem(item)
             adapter.submitList(dataRepo.getData())
+
             }
 
         }
@@ -71,6 +104,7 @@ class NewFragment : Fragment() {
             param1 = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
         }
+
     }
 
     override fun onCreateView(
@@ -82,24 +116,43 @@ class NewFragment : Fragment() {
         adapter = MyAdapter(onItemAction)
         adapter.submitList(dataRepo.getData())
 
+
+
+
+//livedata
+        myvm.getDataLiveData()?.observe(viewLifecycleOwner) {datalist ->
+            adapter.submitList(datalist)
+        }
+
+//flow
+//        lifecycle.coroutineScope.launch {
+//            myvm.getDataFlow()?.collect { data ->
+//
+//                adapter.submitList(data)
+//            }
+//        }
+
 //        parentFragmentManager.setFragmentResultListener("item_added", this) {
 //                requestKey, _ ->
 //            adapter.data = dataRepo.getData()!!
 //            adapter.notifyDataSetChanged()
 //        }
-        parentFragmentManager.setFragmentResultListener("item_added", this) { _, _ ->
-            adapter.submitList(dataRepo.getData())
+//        parentFragmentManager.setFragmentResultListener("item_added", this) { _, _ ->
+//            adapter.submitList(dataRepo.getData())
             // Item added, refresh the data
             //adapter.data = dataRepo.getData()!!
             //adapter.notifyDataSetChanged()
-        }
+ //       }
 
-        parentFragmentManager.setFragmentResultListener("item_modified", this) { _, _ ->
-            adapter.submitList(dataRepo.getData())
+//        parentFragmentManager.setFragmentResultListener("item_modified", this) { _, _ ->
+//            adapter.submitList(dataRepo.getData())
             // Item modified, refresh the data
             //adapter.data = dataRepo.getData()!!
            // adapter.notifyDataSetChanged()
-        }
+//        }
+
+
+
 
 
         return listbinding.root
@@ -120,6 +173,7 @@ class NewFragment : Fragment() {
         recView.layoutManager = LinearLayoutManager(requireContext())
         recView.adapter = adapter
 
+
         val fabAdd: FloatingActionButton = view.findViewById(R.id.fabAdd)
 //        fabAdd.setOnClickListener {
 //            View.OnClickListener {
@@ -130,7 +184,11 @@ class NewFragment : Fragment() {
             findNavController().navigate(R.id.action_new_to_add)
         })
 
-        adapter.submitList(dataRepo.getData())
+//        myvm.getData2()?.observe(viewLifecycleOwner) {datalist ->
+//            adapter.submitList(datalist)
+//        }
+
+        //adapter.submitList(myvm.getData())
         // W obu fragmentach
 //        val sharedViewModel: SharedViewModel by viewModels()
 
@@ -143,9 +201,12 @@ class NewFragment : Fragment() {
 ////                adapter.notifyDataSetChanged()
 ////            }
 //        })
-        recView.postDelayed({
-            adapter.submitList(dataRepo.getData())
-        }, 100)
+//        recView.postDelayed({
+//            adapter.submitList(dataRepo.getData())
+//        }, 100)
+
+
+
     }
 
 
@@ -180,7 +241,7 @@ class NewFragment : Fragment() {
         override fun getItemCount(): Int {
             return dataRepo.getData()?.size ?: 20
         }
-        @SuppressLint("SuspiciousIndentation", "NotifyDataSetChanged")
+
         override fun onBindViewHolder(holder: MyAdapter.MyViewHolder, position: Int) {
 
             val item = getItem(position)

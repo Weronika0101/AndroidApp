@@ -85,12 +85,12 @@
             android:id="@+id/action_new_to_add"
             app:destination="@id/fragmentAdd"
             app:popUpTo="@id/fragment_new"
-            app:popUpToInclusive="true"/>
+/>
         <action
             android:id="@+id/action_new_to_details"
             app:destination="@id/fragmentDetails"
             app:popUpTo="@id/fragment_new"
-            app:popUpToInclusive="true"
+
 
             />
     </fragment>
@@ -103,14 +103,14 @@
     <action
         android:id="@+id/action_details_to_add"
         app:destination="@id/fragmentAdd"
-        app:popUpTo="@id/fragmentAdd"
-        app:popUpToInclusive="true"/>
+        app:popUpTo="@id/fragment_new"
+ />
 
     <action
         android:id="@+id/action_details_to_mod"
         app:destination="@id/fragment_modify"
         app:popUpTo="@id/fragment_new"
-        app:popUpToInclusive="true"
+
 />
     <action
         android:id="@+id/action_add_to_list"
@@ -123,7 +123,7 @@
         android:id="@+id/action_add_to_new"
         app:destination="@id/fragment_new"
         app:popUpTo="@id/fragment_new"
-        app:popUpToInclusive="true"
+
         />
 
 
